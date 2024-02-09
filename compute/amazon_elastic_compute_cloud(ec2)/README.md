@@ -4,11 +4,44 @@
 
 <small>Author: heony</small>
 
+### 목차
+
+- [Amazon Elastic Compute Cloud (EC2)](#amazon-elastic-compute-cloud-ec2)
+    - [거의 모든 워크로드에 적합한 안전하고 크기 조정 가능한 컴퓨팅 용량](#거의-모든-워크로드에-적합한-안전하고-크기-조정-가능한-컴퓨팅-용량)
+- [EC2 접근하기](#ec2-접근하기)
+  - [💡Tip](#tip)
+- [EC2 유형](#ec2-유형)
+  - [인스턴스 패밀리](#인스턴스-패밀리)
+    - [범용](#범용)
+    - [컴퓨팅 최적화](#컴퓨팅-최적화)
+    - [메모리 최적화](#메모리-최적화)
+    - [가속화된 컴퓨팅](#가속화된-컴퓨팅)
+    - [스토리지 최적화](#스토리지-최적화)
+    - [세대 및 추가기능](#세대-및-추가기능)
+    - [인스턴스 크기](#인스턴스-크기)
+    - [종합](#종합)
+- [인스턴스 구입 옵션](#인스턴스-구입-옵션)
+  - [1. On Demand (온디맨드 인스턴스)](#1-on-demand-온디맨드-인스턴스)
+  - [2. Reserved Instance (예약 인스턴스)](#2-reserved-instance-예약-인스턴스)
+  - [3. Saving Plans (절감형 플랜)](#3-saving-plans-절감형-플랜)
+  - [4. Spot Instance (스팟 인스턴스)](#4-spot-instance-스팟-인스턴스)
+  - [5. Dedicated Host (전용 호스트)](#5-dedicated-host-전용-호스트)
+  - [6. Dedicated Instance (전용 인스턴스)](#6-dedicated-instance-전용-인스턴스)
+- [Private vs Public vs Elastic IP](#private-vs-public-vs-elastic-ip)
+- [Placement Groups](#placement-groups)
+  - [Cluster](#cluster)
+  - [Partition](#partition)
+  - [Spread](#spread)
+- [Elastic Network Interfaces (ENI)](#elastic-network-interfaces-eni)
+- [EC2 Hibernate](#ec2-hibernate)
+
 # Amazon Elastic Compute Cloud (EC2)
 
 ### 거의 모든 워크로드에 적합한 안전하고 크기 조정 가능한 컴퓨팅 용량
 
 Amazon Elastic `C`ompute `C`loud 즉, EC2라고 불리는 서비스는 AWS의 대표적인 클라우드 서비스입니다.
+
+---
 
 # EC2 접근하기
 
@@ -73,6 +106,8 @@ Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
 - Oracle AMI의 경우 사용자 이름은 ec2-user입니다.
 - Bitnami AMI의 경우 사용자 이름은 bitnami입니다.
 - 그렇지 않은 경우 AMI 공급자에게 문의하세요.
+
+---
 
 # EC2 유형
 
@@ -200,7 +235,9 @@ t2.micro에서는 살펴볼 수 없었지만 다음과 같은 이미지를 보�
 
 t2.micro는 어떠한 추가기능이 없는 범용 인스턴스이며 2세대입니다. 또한 micro이며 t2에서의 micro는 1개의 vCPU와 1GiB의 메모리 성능을 가지고 있습니다.
 
-## 인스턴스 구입 옵션
+---
+
+# 인스턴스 구입 옵션
 
 흔히 체크카드를 신청하기 전에 우리는 어떤 은행을 선택할 것인가, 어떤 체크카드를 선택할 것인가에 대해 고민하게 됩니다. 왜 고민하시나요? 체크카드를 교통카드로 많이 사용하는 사람이 있고, 또는 편의점 및 백화점에 많이 사용하는 사람이 있듯이 각자의 소비패턴에 맞는 것을 골라야 하기 때문입니다.
 
@@ -215,7 +252,7 @@ t2.micro는 어떠한 추가기능이 없는 범용 인스턴스이며 2세대�
 - 전용 호스트 — 인스턴스 실행을 전담하는 실제 호스트 비용을 지불하여 비용을 절감
 - 전용 인스턴스 — 인스턴스 비용을 시간 단위로 지불
   
-### 1. On Demand (온디맨드 인스턴스)
+## 1. On Demand (온디맨드 인스턴스)
 
 사용한 만큼 지불합니다. 리눅스나 윈도우를 사용하게 되면 1분이 지나가는 시점부터 초단위로 지불되기 시작합니다. 그 외의 다른 운영체제에서는 시간당 비용이 청구됩니다.
 
@@ -223,7 +260,7 @@ t2.micro는 어떠한 추가기능이 없는 범용 인스턴스이며 2세대�
 
 따라서 보통 애플리케이션의 동작을 예측할 수 없을 때 사용합니다.
 
-### 2. Reserved Instance (예약 인스턴스)
+## 2. Reserved Instance (예약 인스턴스)
 
 1년 또는 3년동안 미리 예약을 할 수 있습니다. 이 때 예약하는 것은 인스턴스 타입, 리전(Region), 테넌시(Tenancy), 운영체제(OS) 입니다.
 
@@ -235,13 +272,13 @@ EC2에서 예약하는 모든 것들은 1년 혹은 3년입니다.
 
 그래봤자 Reserved Instance는 최대 72%할인, Convertible Reserved Instance는 최대 66%할인입니다.
 
-### 3. Saving Plans (절감형 플랜)
+## 3. Saving Plans (절감형 플랜)
 
 예약 인스턴스와 함께 1년 또는 3년으로 예약할 수 있습니다. 보통 시간 당 10$을 약정하며, 초과하는 사용량에 대해서는 On demand 가격으로 청구됩니다.
 
 Reserved Instance보다 여유롭습니다. 따라서 Instance Size 및 운영체제, 테넌시 등을 전환할 수 있습니다.
 
-### 4. Spot Instance (스팟 인스턴스)
+## 4. Spot Instance (스팟 인스턴스)
 
 돈이 없을 때에는 가장 탁월한 선택인 Spot Instance입니다. 예약 인스턴스에서는 가장 큰 혜택을 봐도 72% 할인이 되지만, 스팟 인스턴스에서는 무려 90% 가량 할인을 받을 수 있습니다.
 
@@ -249,15 +286,17 @@ Reserved Instance보다 여유롭습니다. 따라서 Instance Size 및 운영�
 
 따라서 배치 작업, 데이터 분석, 이미지 처리, 분산된 워크로드 등 다양하고 유동적인 상황에서 쓰이면 좋은 반면 데이터베이스와 같이 중요한 일에 대해서는 절대 사용하면 안 됩니다.
 
-### 5. Dedicated Host (전용 호스트)
+## 5. Dedicated Host (전용 호스트)
 
 EC2 인스턴스 용량을 가진 물리적 서버입니다. 규정 준수 요구 사항이 있거나 기존의 서버 결합 소프트웨어 라이선스를 사용해야 할 경우에 사용됩니다. 실제 물리적 서버를 갖추었기 때문에 가장 비싸며, 소켓, 코어 및 VM 라이선스 당 비용이 청구됩니다.
 
-### 6. Dedicated Instance (전용 인스턴스)
+## 6. Dedicated Instance (전용 인스턴스)
 
 여러분의 전용 하드웨어에서 실행되는 인스턴스이며 물리적 서버와는 다릅니다. 같은 계정의 다른 인스턴스와 하드웨어를 공유하기도 하며, 인스턴스 배치는 제어할 수 없습니다.
 
 사용자 하드웨어에 고유한 인스턴스를 갖는 것이며 전용 호스트는 물리적 서버 자체에 접근하여 저수준 하드웨어에 대한 가시성을 제공합니다.
+
+---
 
 # Private vs Public vs Elastic IP
 
@@ -273,6 +312,8 @@ EC2 인스턴스 용량을 가진 물리적 서버입니다. 규정 준수 요�
 ```
 
 그러나 Elastic IP의 사용을 추천하지 않습니다. `LoadBalancer`와 `AutoScaling`을 통해 충분히 IP가 바뀌어도 추적할 수 있도록 만들어야 합니다. **고정적으로 IP가 들어가는 곳**이 있다면 그 부분을 변경하는 것을 추천드립니다.
+
+---
 
 # Placement Groups
 
@@ -312,6 +353,8 @@ EC2 인스턴스가 AWS 인프라에 배치되는 방식을 제어하고 싶을 
 
 > 가용성을 극대화하고 위험을 줄여야 하는 서비스에 대해 많이 사용됩니다.
 
+---
+
 # Elastic Network Interfaces (ENI)
 
 `탄력적 네트워크 인터페이스`를 ENI라고 합니다. EC2 인스턴스가 네트워크에 액세스할 수 있게 해줍니다. VPC에서 가상 네트워크 카드를 나타내는 논리적 네트워킹 구성 요소입니다.
@@ -329,6 +372,8 @@ EC2 인스턴스가 AWS 인프라에 배치되는 방식을 제어하고 싶을 
 - 설명
 
 > 생각보다 이해하기 어려운 서비스입니다. 이 [AWS Blog](https://aws.amazon.com/ko/blogs/aws/new-elastic-network-interfaces-in-the-virtual-private-cloud/)를 참조하여 읽어보는 것을 추천드립니다. 또한 VPC 파트를 먼저 이해하는 것 또한 추천드립니다.
+
+---
 
 # EC2 Hibernate
 
