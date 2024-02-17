@@ -1,7 +1,5 @@
 ![ec2](https://github.com/oueya1479/aws-101/assets/147911523/1a15c2a2-d5b2-4486-ab00-8f0a9461be2e)
 
-<small>Update: 2024. 02. 09</small>
-
 <small>Author: heony</small>
 
 ### 목차
