@@ -1,10 +1,24 @@
 ![elb](https://github.com/oueya1479/aws-101/assets/147911523/2994d2e1-14fc-4fa3-9495-20d04ce104fd)
 
-<small>Update: 2024. 02. 10</small>
-
 <small>Author: heony</small>
 
 ### 목차
+
+- [Elastic Load Balancing](#elastic-load-balancing)
+    - [네트워크 트래픽을 분산하여 애플리케이션 확장성 개선](#네트워크-트래픽을-분산하여-애플리케이션-확장성-개선)
+  - [Health Checks](#health-checks)
+  - [Security Group](#security-group)
+- [Application Load Balancer (ALB)](#application-load-balancer-alb)
+  - [대상 그룹](#대상-그룹)
+- [Network Load Balancer (NLB)](#network-load-balancer-nlb)
+  - [대상 그룹](#대상-그룹-1)
+- [Gateway Load Balancer (GWLB)](#gateway-load-balancer-gwlb)
+  - [대상 그룹](#대상-그룹-2)
+- [Sticky Sessions (Session Affinity)](#sticky-sessions-session-affinity)
+  - [쿠키는 무엇인가요?](#쿠키는-무엇인가요)
+- [Cross-Zone Load Balancing](#cross-zone-load-balancing)
+- [SSL/TLS](#ssltls)
+  - [SNI (Server Name Indication)](#sni-server-name-indication)
 
 # Elastic Load Balancing
 
